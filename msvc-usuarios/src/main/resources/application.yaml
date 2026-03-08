@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: mscv-usuarios
+  datasource:
+    url: jdbc:mysql://localhost:3306/msvc-usuarios
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    generate-ddl: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+
+server:
+  port: 8001
