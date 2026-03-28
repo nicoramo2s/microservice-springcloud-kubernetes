@@ -46,6 +46,24 @@ public class CursoServiceImpl implements CursoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Optional<Curso> porIdConUsuarios(Long id) {
+        Optional<Curso> optionalCurso = cursoRepository.findById(id);
+        if (optionalCurso.isPresent()) {
+            Curso curso = optionalCurso.get();
+            if (!curso.getCursoUsuarios().isEmpty()) {
+                List<Long> ids = curso.getCursoUsuarios().stream()
+                        .map(CursoUsuario::getUsuarioId)
+                        .toList();
+                List<Usuario> usuarios = clientUsuarioRest.obtenerAlumnosPorCurso(ids);
+                curso.setUsuarios(usuarios);
+            }
+                return Optional.of(curso);
+        }
+        return Optional.empty();
+    }
+
+    @Override
     @Transactional
     public Optional<Usuario> asignarUsuario(Usuario usuario, Long cursoId) {
         // Buscar el curso por ID
@@ -68,7 +86,6 @@ public class CursoServiceImpl implements CursoService {
             curso.addCursoUsuario(cursoUsuario);
             cursoRepository.save(curso);
             return Optional.of(usuarioMsvc);
-
         }
         return Optional.empty();
 

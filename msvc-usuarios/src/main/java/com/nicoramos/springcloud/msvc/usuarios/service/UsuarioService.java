@@ -11,4 +11,5 @@ public interface UsuarioService {
     Usuario guardar(Usuario usuario);
     void eliminar(Long id);
     boolean existsByEmail(String email);
+    List<Usuario> listarPorIds(Iterable<Long> ids);
 }
