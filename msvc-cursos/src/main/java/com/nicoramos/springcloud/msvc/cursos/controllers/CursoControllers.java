@@ -103,4 +103,10 @@ public class CursoControllers {
         }
     }
 
+    @DeleteMapping("/eliminar-curso-usuario/{cursoId}")
+    public ResponseEntity<?> eliminarUsuario(@PathVariable Long cursoId) {
+        cursoService.eliminarCursoUsuarioPorId(cursoId);
+        return ResponseEntity.noContent().build();
+    }
+
 }

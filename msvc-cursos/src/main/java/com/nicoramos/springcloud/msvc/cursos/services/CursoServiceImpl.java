@@ -39,10 +39,16 @@ public class CursoServiceImpl implements CursoService {
         return cursoRepository.save(curso);
     }
 
-    @Transactional
     @Override
+    @Transactional
     public void eliminar(Long id) {
         cursoRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public void eliminarCursoUsuarioPorId(Long usuarioId) {
+        cursoRepository.eliminarCursoUsuarioPorId(usuarioId);
     }
 
     @Override

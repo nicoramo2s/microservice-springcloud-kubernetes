@@ -1,5 +1,6 @@
 package com.nicoramos.springcloud.msvc.usuarios.service;
 
+import com.nicoramos.springcloud.msvc.usuarios.clients.CursoClienteRest;
 import com.nicoramos.springcloud.msvc.usuarios.models.entity.Usuario;
 import com.nicoramos.springcloud.msvc.usuarios.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private CursoClienteRest cursoClienteRest;
 
     @Override
     @Transactional(readOnly = true)
@@ -49,5 +53,6 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     public void eliminar(Long id) {
         usuarioRepository.deleteById(id);
+        cursoClienteRest.eliminarCursoUsuarioPorId(id);
     }
 }
